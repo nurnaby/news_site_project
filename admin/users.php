@@ -1,4 +1,6 @@
-<?php include "include/header.php"; ?>
+<?php include "include/header.php"; 
+      include "controller/config.php";
+?>
 <div id="admin-content">
     <div class="container">
         <div class="row">
@@ -19,38 +21,33 @@
                         <th>Delete</th>
                     </thead>
                     <tbody>
+                        <?php
+                             $selectQuery= "SELECT * FROM user ORDER BY user_id DESC";
+                             $user_list=mysqli_query($dbcon,$selectQuery);
+                             foreach($user_list as $key =>$user){
+                        ?>
+
                         <tr>
-                            <td class='id'>1</td>
-                            <td>Ram Sharma</td>
-                            <td>ram</td>
-                            <td>admin</td>
-                            <td class='edit'><a href='update-user.php'><i class='fa fa-edit'></i></a></td>
-                            <td class='delete'><a href='delete-user.php'><i class='fa fa-trash-o'></i></a></td>
+                            <td class='id'><?php echo $user['user_id'];?></td>
+                            <td><?php echo $user['first_name']." ".$user['last_name'];?></td>
+                            <td><?php echo $user['username'];?></td>
+                            <td><?php
+                                    if($user['role']==1){
+                                        echo "admin";
+                                    }else{
+                                        echo "nurmal";
+
+                                    }
+                              ?></td>
+                            <td class='edit'><a href='update-user.php?id=<?php echo $user["user_id"];?>'><i
+                                        class='fa fa-edit'></i></a></td>
+                            <td class='delete'><a href='delete-user.php?id=<?php echo $user["user_id"];?>'><i
+                                        class='fa fa-trash-o'></i></a></td>
                         </tr>
-                        <tr>
-                            <td class='id'>2</td>
-                            <td>Shyam Kumar</td>
-                            <td>shyam</td>
-                            <td>normal</td>
-                            <td class='edit'><a href='update-user.php'><i class='fa fa-edit'></i></a></td>
-                            <td class='delete'><a href='delete-user.php'><i class='fa fa-trash-o'></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class='id'>3</td>
-                            <td>Ramesh Kumar</td>
-                            <td>ramesh</td>
-                            <td>admin</td>
-                            <td class='edit'><a href='update-user.php'><i class='fa fa-edit'></i></a></td>
-                            <td class='delete'><a href='delete-user.php'><i class='fa fa-trash-o'></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class='id'>4</td>
-                            <td>Satish Sharma</td>
-                            <td>satish</td>
-                            <td>admin</td>
-                            <td class='edit'><a href='update-user.php'><i class='fa fa-edit'></i></a></td>
-                            <td class='delete'><a href='delete-user.php'><i class='fa fa-trash-o'></i></a></td>
-                        </tr>
+                        <?php }?>
+
+
+
                     </tbody>
                 </table>
                 <ul class='pagination admin-pagination'>
