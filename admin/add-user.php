@@ -1,5 +1,10 @@
 <?php include "include/header.php";
 include "controller/config.php";
+// only admin can see this page coditon
+if($_SESSION['role'] =='0'){
+    header("Location:post.php");
+ } 
+//  insert user 
 if(isset($_POST['save'])){
 
      $first_name =mysqli_real_escape_string($dbcon,$_POST['first_name']);
@@ -54,7 +59,8 @@ if(isset($_POST['save'])){
                     </div>
                     <div class="form-group">
                         <label>User Name</label>
-                        <input type="text" name="username" class="form-control" placeholder="Username" required>
+                        <input type="text" name="username" class="form-control" placeholder="Username" required
+                            autocomplete="off">
                     </div>
 
                     <div class="form-group">

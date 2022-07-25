@@ -1,5 +1,11 @@
 <?php include "include/header.php"; 
       include "controller/config.php";
+      
+     if($_SESSION['role'] =='0'){
+        header("Location:post.php");
+
+     } 
+                        
 ?>
 <div id="admin-content">
     <div class="container">
@@ -22,7 +28,17 @@
                     </thead>
                     <tbody>
                         <?php
-                             $selectQuery= "SELECT * FROM user ORDER BY user_id DESC";
+                             $limit= 3;
+                             
+                             if(isset($_GET['page'])){
+                                $page =$_GET['page'];
+                             }else{
+                                $page =1;
+
+                             }
+                             $offset = ($page-1)*$limit;
+
+                             $selectQuery= "SELECT * FROM user ORDER BY user_id DESC Limit {$offset},{$limit}";
                              $user_list=mysqli_query($dbcon,$selectQuery);
                              foreach($user_list as $key =>$user){
                         ?>
@@ -44,17 +60,45 @@
                             <td class='delete'><a href='delete-user.php?id=<?php echo $user["user_id"];?>'><i
                                         class='fa fa-trash-o'></i></a></td>
                         </tr>
-                        <?php }?>
-
-
-
+                        <?php }
+                        
+                        ?>
                     </tbody>
                 </table>
-                <ul class='pagination admin-pagination'>
-                    <li class="active"><a>1</a></li>
-                    <li><a>2</a></li>
-                    <li><a>3</a></li>
-                </ul>
+                <?php
+                $sql ="SELECT * FROM `user` ";
+                $sql_result = mysqli_query($dbcon,$sql) or die('query failed');
+                if(mysqli_num_rows($sql_result)>0){
+                    $totalRecordes = mysqli_num_rows($sql_result);
+                   
+                    $totalPage= ceil($totalRecordes/$limit);
+                    echo "<ul class='pagination admin-pagination'>";
+                    if($page>1){
+
+                        echo '<li><a href="users.php?page='.($page-1).'">prev</a></li>';
+                    }
+                    for($i=1; $i<=$totalPage; $i++){
+                        if($i==$page){
+                            $active = "active";
+                            
+                        }else{
+                            $active = "";
+                        }
+                        echo '<li class="'.$active.'"><a href="users.php?page='.$i.'">'.$i.'</a></li>';
+                    }
+                    if($totalPage>$page){
+
+                        echo '<li><a href="users.php?page='.($page+1).'">Next</a></li>';
+                    }
+                    echo "</ul>";
+
+                }
+                
+                
+                ?>
+
+                <!-- <li class="active"><a>1</a></li> -->
+
             </div>
         </div>
     </div>
