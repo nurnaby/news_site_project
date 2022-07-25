@@ -1,5 +1,8 @@
 <?php include "include/header.php";
 include "controller/config.php";
+if(isset($_POST[''])){
+
+}
 
  ?>
 <div id="admin-content">
@@ -27,9 +30,7 @@ include "controller/config.php";
                                 $selectQuery = "SELECT * FROM category";
                                 $categorys = mysqli_query($dbcon,$selectQuery);
                                 if(mysqli_num_rows($categorys)>0){
-                                    foreach($categorys as $key => $category){
-
-                                      
+                                    foreach($categorys as $key => $category){         
                             ?>
                             <option value="<?php echo $category['category_id']?>">
                                 <?php echo $category['category_name'];?></option>
