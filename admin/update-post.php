@@ -9,7 +9,7 @@ include "controller/config.php";
             </div>
             <div class="col-md-offset-3 col-md-6">
                 <!-- Form for show edit-->
-                <form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
+                <form action="post_update.php" method="POST" enctype="multipart/form-data" autocomplete="off">
                     <?php
                         if(isset($_GET['id'])){
                             $post_id = $_GET['id'];
@@ -19,7 +19,8 @@ include "controller/config.php";
                             foreach($results as $key => $result){
                     ?>
                     <div class="form-group">
-                        <input type="hidden" name="post_id" class="form-control" value="1" placeholder="">
+                        <input type="hidden" name="post_id" class="form-control" value="<?php echo $result['post_id']?>"
+                            placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputTile">Title</label>
@@ -36,12 +37,19 @@ include "controller/config.php";
                         <label for="exampleInputCategory">Category</label>
                         <select class="form-control" name="category">
                             <?php
+
                                 $selectQuery = "SELECT * FROM category";
                                 $categorys = mysqli_query($dbcon,$selectQuery);
                                 if(mysqli_num_rows($categorys)>0){
-                                    foreach($categorys as $key => $category){         
+                                    foreach($categorys as $key => $category){ 
+                                        
+                                        if($result['category'] == $category['category_id']) {
+                                            $selected= "selected";
+                                        } else{
+                                            $selected= "";
+                                        }      
                             ?>
-                            <option value="<?php echo $category['category_id']?>">
+                            <option <?php echo $selected;?> value="<?php echo $category['category_id']?>">
                                 <?php echo $category['category_name'];?></option>
                             <?php
                             }}
@@ -52,9 +60,9 @@ include "controller/config.php";
                         <label for="">Post image</label>
                         <input type="file" name="new-image">
                         <img src="upload/<?php echo $result['post_img'];?>" height="150px">
-                        <input type="hidden" name="old-image" value="">
+                        <input type="hidden" name="old-image" value="<?php echo $result['post_img'];?>">
                     </div>
-                    <input type="submit" name="submit" class="btn btn-primary" value="Update" />
+                    <input type="submit" name="post_udate" class="btn btn-primary" value="Update" />
 
                     <?php
                     }}
