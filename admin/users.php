@@ -1,9 +1,8 @@
 <?php include "include/header.php"; 
       include "controller/config.php";
-      
+      // only admin can see this page coditon
      if($_SESSION['role'] =='0'){
         header("Location:post.php");
-
      } 
                         
 ?>

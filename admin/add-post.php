@@ -13,14 +13,14 @@ if(isset($_POST[''])){
             </div>
             <div class="col-md-offset-3 col-md-6">
                 <!-- Form -->
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action="savePost.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="post_title">Title</label>
-                        <input type="text" name="post_title" class="form-control" autocomplete="off" required>
+                        <input type="text" name="title" class="form-control" autocomplete="off" required>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1"> Description</label>
-                        <textarea name="postdesc" class="form-control" rows="5" required></textarea>
+                        <textarea name="description" class="form-control" rows="5" required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Category</label>
@@ -41,9 +41,9 @@ if(isset($_POST[''])){
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Post image</label>
-                        <input type="file" name="fileToUpload" required>
+                        <input type="file" name="post_img">
                     </div>
-                    <input type="submit" name="saveCategory" class="btn btn-primary" value="Save" required />
+                    <input type="submit" name="savePost" class="btn btn-primary" value="Save" required />
                 </form>
                 <!--/Form -->
             </div>
