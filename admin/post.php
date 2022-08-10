@@ -33,7 +33,7 @@
                              }
                              $offset = ($page-1)*$limit;
 
-                             $selectQuery= "SELECT post.post_id,post.title,post.description,post.category,post.post_date,category.category_name,user.username FROM post 
+                             $selectQuery= "SELECT post.post_id,post.title,post.description,post.category,post.post_date,category.category_id,category.category_name,user.username FROM post 
                              LEFT JOIN category ON post.category = category.category_id
                              LEFT JOIN user ON post.author = user.user_id ORDER BY post_id DESC Limit {$offset},{$limit}";
                              $post_list=mysqli_query($dbcon,$selectQuery);
@@ -49,7 +49,8 @@
                             <td><?php echo $post['username'];?></td>
                             <td class='edit'><a href='update-post.php?id=<?php echo $post['post_id'];?>'><i
                                         class='fa fa-edit'></i></a></td>
-                            <td class='delete'><a href='delete-post.php?id=<?php echo $post['post_id'];?>'><i
+                            <td class='delete'><a
+                                    href='delete-post.php?id=<?php echo $post['post_id']; ?>&catid=<?php echo $post['category_id'];?>'><i
                                         class='fa fa-trash-o'></i></a></td>
                         </tr>
                         <?php } ?>

@@ -1,5 +1,6 @@
 <?php
  include "controller/config.php";
+ session_start();
  $user_id = $_GET['id'];
 // only admin can see this page coditon
 if($_SESSION['role'] =='0'){
